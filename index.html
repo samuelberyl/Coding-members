@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TAPHY CODERS CLUB 👨‍💻 - 17 Members</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box;font-family:Arial,sans-serif}
+body{background:#0a0a0a;color:white}
+header{background:linear-gradient(135deg,#ff6600,#ffcc00);color:#111;padding:16px;text-align:center;position:sticky;top:0;z-index:20}
+header h1{font-size:28px}
+header p{font-size:13px;font-weight:bold}
+.stats{display:flex;justify-content:center;gap:10px;padding:14px;flex-wrap:wrap}
+.stats div{background:#1a1a1a;padding:12px 16px;border-radius:12px;text-align:center;min-width:90px;border:1px solid #333}
+.stats div b{font-size:22px;color:#ffcc00;display:block}
+.stats div span{font-size:11px;color:#aaa}
+.search{margin:0 16px 12px;background:#1a1a1a;border-radius:25px;padding:11px 16px;display:flex;gap:8px;border:1px solid #333}
+.search input{background:none;border:none;outline:none;color:white;flex:1;font-size:15px}
+.filters{display:flex;gap:8px;overflow-x:auto;padding:0 16px 14px;scrollbar-width:none}
+.filters::-webkit-scrollbar{display:none}
+.filter{flex-shrink:0;background:#1a1a1a;padding:9px 16px;border-radius:20px;font-weight:bold;font-size:13px;cursor:pointer;border:2px solid transparent}
+.filter.active{background:#ffcc00;color:#111;border-color:#ffcc00}
+.leader{margin:0 16px 14px;background:linear-gradient(135deg,#ffcc00,#ff6600);color:#111;border-radius:16px;padding:16px;display:flex;gap:14px;align-items:center}
+.leader .ava{width:70px;height:70px;background:#111;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:34px;flex-shrink:0}
+.leader button{background:#111;color:white;border:none;padding:10px 18px;border-radius:20px;font-weight:bold;cursor:pointer;margin-top:8px}
+.grid{padding:0 16px 100px;display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.card{background:#1a1a1a;border-radius:16px;padding:14px;text-align:center;border:2px solid #222;cursor:pointer;position:relative}
+.card:hover{border-color:#ffcc00;transform:translateY(-3px)}
+.card.new{border-color:#00ff88}
+.card.new::after{content:"✨ NEW";position:absolute;top:8px;right:8px;background:#00ff88;color:#111;font-size:10px;font-weight:bold;padding:3px 8px;border-radius:10px}
+.card .ava{width:70px;height:70px;border-radius:50%;margin:auto;display:flex;align-items:center;justify-content:center;font-size:32px}
+.card h3{font-size:15px;margin:8px 0 3px;line-height:1.2}
+.card .role{color:#ffcc00;font-size:12px;font-weight:bold}
+.card .skill{color:#aaa;font-size:11px;margin:4px 0}
+.card .level{font-size:11px;background:#222;padding:5px 10px;border-radius:10px;display:inline-block;margin:4px 0}
+.card .points{color:#00ff88;font-weight:bold;font-size:13px}
+.card button{width:100%;background:#333;color:white;border:none;padding:9px;border-radius:8px;font-weight:bold;cursor:pointer;margin-top:8px}
+.card button:hover{background:#ffcc00;color:#111}
+.bottom-nav{position:fixed;bottom:0;left:0;width:100%;background:#111;border-top:1px solid #333;padding:10px;display:flex;justify-content:space-around;font-size:11px;z-index:30}
+.bottom-nav div{text-align:center;cursor:pointer;color:#aaa}
+.bottom-nav div.active{color:#ffcc00}
+.bottom-nav div span{display:block;font-size:22px}
+.modal{display:none;position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.85);z-index:99;justify-content:center;align-items:flex-end}
+.modalBox{background:#1a1a1a;width:100%;max-width:500px;border-radius:20px 20px 0 0;padding:20px;max-height:88vh;overflow-y:auto;text-align:center}
+.modalBox input,.modalBox textarea,.modalBox select{width:100%;padding:11px;border-radius:8px;border:1px solid #333;background:#222;color:white;margin:8px 0;outline:none}
+.modalBox button{padding:11px 18px;border-radius:10px;border:none;font-weight:bold;cursor:pointer;margin:5px}
+@media(min-width:700px){.grid{grid-template-columns:repeat(3,1fr);max-width:1000px;margin:auto}}
+</style>
+</head>
+<body>
+
+<header>
+<h1>👨‍💻 TAPHY CODING CLUB</h1>
+<p>Homabay • 17 Members • Building The Future Together 🔥</p>
+</header>
+
+<div class="stats">
+<div><b id="totalMembers">17</b><span>MEMBERS</span></div>
+<div><b>1,240</b><span>PROJECTS</span></div>
+<div><b>89</b><span>WEBSITES BUILT</span></div>
+<div><b>⭐ 4.9</b><span>TEAM RATING</span></div>
+</div>
+
+<div class="search">🔍 <input type="text" id="searchInput" placeholder="Search member... e.g. Taphy, Ryan..." oninput="doSearch()"></div>
+
+<div class="filters" id="filters">
+<div class="filter active" onclick="setFilter('All',this)">👥 All (17)</div>
+<div class="filter" onclick="setFilter('Leader',this)">👑 Leaders</div>
+<div class="filter" onclick="setFilter('Frontend',this)">🎨 Frontend</div>
+<div class="filter" onclick="setFilter('Backend',this)">⚙️ Backend</div>
+<div class="filter" onclick="setFilter('Game',this)">🎮 Game Dev</div>
+<div class="filter" onclick="setFilter('New',this)">✨ New</div>
+</div>
+
+<div class="leader">
+<div class="ava">👑</div>
+<div><h2 style="font-size:19px">Founder: Taphy Samson</h2><p style="font-size:13px;margin:4px 0">Full Stack Developer • Created 50+ Websites • Mentor</p><p style="font-size:12px">🏆 Top Coder 2026 • 1,240 Points</p><button onclick="openProfile(0)">View Profile →</button></div>
+</div>
+
+<div style="padding:0 16px 10px;display:flex;justify-content:space-between;align-items:center">
+<h3>👥 Our Members - <span id="memberCount">17</span></h3>
+<button style="background:#ffcc00;border:none;padding:8px 16px;border-radius:20px;font-weight:bold;cursor:pointer" onclick="openAdd()">+ Add Member</button>
+</div>
+
+<div class="grid" id="membersGrid"></div>
+
+<div class="bottom-nav">
+<div class="active"><span>👥</span>Members</div>
+<div onclick="alert('Projects: 89 Websites Built!\n\nTop Projects:\n1. TaphyGram\n2. TaphyBook\n3. Beach Buggy\n4. Taphy Music')"><span>💻</span>Projects</div>
+<div onclick="openAdd()"><span>➕</span>Add</div>
+<div onclick="alert('Chat Group: Taphy Coders WhatsApp\n\nLast message:\nTaphy: New website ready! 🔥\nRyan: Fire! 🔥🔥')"><span>💬</span>Chat</div>
+<div onclick="alert('Leaderboard:\n1. Taphy Samson - 1240 pts\n2. Ryan Batel - 980 pts\n3. Chrispine Jr - 890 pts\n4. Phill Nevill - 850 pts\n5. Favour David - 820 pts')"><span>🏆</span>Leaderboard</div>
+</div>
+
+<div class="modal" id="profileModal">
+<div class="modalBox">
+<div id="profileContent"></div>
+<button style="background:#333;color:white;width:100%" onclick="closeProfile()">Close ✕</button>
+</div>
+</div>
+
+<div class="modal" id="addModal">
+<div class="modalBox">
+<h2>➕ Add New Member</h2>
+<input type="text" id="newName" placeholder="Full Name e.g. John Doe">
+<select id="newRole"><option>Frontend Developer</option><option>Backend Developer</option><option>Game Developer</option><option>UI/UX Designer</option><option>Full Stack Developer</option></select>
+<input type="text" id="newSkill" placeholder="Skill e.g. HTML, CSS, JS">
+<button style="background:#ffcc00;color:#111;width:100%;padding:13px" onclick="addMember()">Add Member ✅</button>
+<button style="background:#333;color:white" onclick="closeAdd()">Cancel</button>
+<p id="addResult" style="color:#00ff88;font-weight:bold;margin-top:8px"></p>
+</div>
+</div>
+
+<script>
+let members=[
+{name:'Taphy Samson',role:'Founder & Full Stack',skill:'HTML • CSS • JS • Python',points:1240,ava:'👑',color:'#ffcc00',cat:'Leader',bio:'Founder of Taphy Coders. Built 50+ websites. Mentor to all members. Loves Homabay!'},
+{name:'Ryan Batel',role:'Vice Leader • Frontend',skill:'React • HTML • CSS',points:980,ava:'⚡',color:'#00a651',cat:'Frontend',bio:'Vice Leader. Best at Frontend design. Makes websites look beautiful!'},
+{name:'Chrispine Junior',role:'Backend Developer',skill:'Python • Database',points:890,ava:'⚙️',color:'#563d7c',cat:'Backend',bio:'Backend master. Handles databases and servers.'},
+{name:'Phill Nevill',role:'Frontend Developer',skill:'HTML • CSS • JS',points:850,ava:'🎨',color:'#d62976',cat:'Frontend',bio:'Creative frontend dev. Loves colors and animations.'},
+{name:'Favour David',role:'UI/UX Designer',skill:'Figma • Design • CSS',points:820,ava:'✨',color:'#f1e05a',cat:'Frontend',bio:'Design queen. Makes UI look amazing!'},
+{name:'Humphrey Ogolla',role:'Backend Developer',skill:'Python • PHP • MySQL',points:780,ava:'💻',color:'#e34c26',cat:'Backend',bio:'Strong backend skills. Loves solving hard problems.'},
+{name:'Winnie Grace',role:'Frontend Developer',skill:'HTML • CSS • JS',points:760,ava:'🌸',color:'#ff6b9d',cat:'Frontend',bio:'Frontend star. Very creative and fast learner.'},
+{name:'Sarahi Harun',role:'Designer & Frontend',skill:'CSS • Design • JS',points:740,ava:'🌙',color:'#a29bfe',cat:'Frontend',bio:'Design + Code. Makes beautiful websites.'},
+{name:'Brian Kipkoech',role:'Game Developer',skill:'Game • JS • Canvas',points:720,ava:'🎮',color:'#74b9ff',cat:'Game',bio:'Game dev expert. Built Beach Buggy style games!'},
+{name:'Ishmael Ochieng',role:'Backend Developer',skill:'Python • API',points:700,ava:'🔧',color:'#55efc4',cat:'Backend',bio:'API and backend specialist.'},
+{name:'Martin Max',role:'Full Stack Developer',skill:'HTML • JS • Python',points:680,ava:'🚀',color:'#ff7675',cat:'Leader',bio:'Full stack. Can do everything!'},
+{name:'Harry Junior',role:'Frontend Developer',skill:'HTML • CSS',points:640,ava:'⚽',color:'#00b894',cat:'Frontend',bio:'Young talent. Learning fast! Football + Coding.'},
+{name:'Rooney Junior',role:'Game Developer',skill:'Game • JS',points:620,ava:'🏆',color:'#fdcb6e',cat:'Game',bio:'Game lover. Wants to build next FIFA game!'},
+{name:'Clinton',role:'Backend Developer',skill:'Python • Database',points:600,ava:'💾',color:'#6c5ce7',cat:'Backend',bio:'Database expert. Quiet but very smart.'},
+{name:'Sheldon Ochieng',role:'Frontend Developer',skill:'HTML • CSS • JS',points:580,ava:'🧠',color:'#e17055',cat:'Frontend',bio:'Smart coder. Loves puzzles and logic.'},
+{name:'Angela',role:'Designer & Frontend',skill:'Design • CSS • HTML',points:560,ava:'💖',color:'#fd79a8',cat:'Frontend',bio:'Designer. Makes everything beautiful!'},
+{name:'Robin Van Persie',role:'New Member • Learner',skill:'Learning HTML • CSS',points:100,ava:'✨',color:'#00ff88',cat:'New',bio:'Welcome! Newest member of Taphy Coders! Learning HTML & CSS. Future star! 🌟',isNew:true},
+];
+let currentFilter='All';
+function render(){
+  let filtered = currentFilter=='All' ? members : members.filter(m=>m.cat==currentFilter || (currentFilter=='New' && m.isNew));
+  document.getElementById('memberCount').innerText=filtered.length;
+  document.getElementById('totalMembers').innerText=members.length;
+  let html='';
+  filtered.forEach(m=>{
+    let idx=members.indexOf(m);
+    html+='<div class="card '+(m.isNew?'new':'')+'" onclick="openProfile('+idx+')"><div class="ava" style="background:'+m.color+'">'+m.ava+'</div><h3>'+m.name+'</h3><div class="role">'+m.role+'</div><div class="skill">'+m.skill+'</div><div class="level">⭐ Level '+(Math.floor(m.points/200)+1)+' • '+m.points+' pts</div><div class="points">🏆 '+m.points+' Points</div><button>View Profile →</button></div>';
+  });
+  document.getElementById('membersGrid').innerHTML=html;
+}
+function setFilter(cat,el){
+  currentFilter=cat;
+  document.querySelectorAll('.filter').forEach(f=>f.classList.remove('active'));
+  el.classList.add('active');
+  render();
+}
+function doSearch(){
+  let q=document.getElementById('searchInput').value.toLowerCase();
+  if(!q){ render(); return; }
+  let filtered=members.filter(m=>m.name.toLowerCase().includes(q)||m.role.toLowerCase().includes(q));
+  let html='';
+  filtered.forEach(m=>{
+    let idx=members.indexOf(m);
+    html+='<div class="card" onclick="openProfile('+idx+')"><div class="ava" style="background:'+m.color+'">'+m.ava+'</div><h3>'+m.name+'</h3><div class="role">'+m.role+'</div><div class="skill">'+m.skill+'</div><div class="points">🏆 '+m.points+' Points</div><button>View Profile →</button></div>';
+  });
+  if(filtered.length==0) html='<p style="grid-column:span 2;text-align:center;color:#aaa;padding:20px">No member found for "'+q+'"</p>';
+  document.getElementById('membersGrid').innerHTML=html;
+  document.getElementById('memberCount').innerText=filtered.length;
+}
+function openProfile(i){
+  let m=members[i];
+  document.getElementById('profileContent').innerHTML='<div style="font-size:70px;width:90px;height:90px;background:'+m.color+';border-radius:50%;display:flex;align-items:center;justify-content:center;margin:auto">'+m.ava+'</div><h2 style="margin:10px 0 4px">'+m.name+'</h2><p style="color:#ffcc00;font-weight:bold">'+m.role+'</p><p style="color:#aaa;font-size:13px;margin:8px 0">'+m.skill+'</p><p style="line-height:1.6;margin:10px 0">'+m.bio+'</p><p style="background:#222;padding:10px;border-radius:10px">🏆 Points: <b style="color:#00ff88">'+m.points+'</b> • Projects: '+(Math.floor(m.points/100)+2)+' • Joined: 2026</p><div style="display:flex;gap:8px;margin-top:12px"><button style="background:#25d366;color:white;flex:1" onclick="alert(\'WhatsApp to '+m.name+': Hello! 👋\')">💬 WhatsApp</button><button style="background:#ffcc00;color:#111;flex:1" onclick="alert(\'Following '+m.name+'! ✅\')">+ Follow</button></div>';
+  document.getElementById('profileModal').style.display='flex';
+}
+function closeProfile(){ document.getElementById('profileModal').style.display='none'; }
+function openAdd(){ document.getElementById('addModal').style.display='flex'; }
+function closeAdd(){ document.getElementById('addModal').style.display='none'; }
+function addMember(){
+  let name=document.getElementById('newName').value.trim();
+  if(!name){ alert('Write name first!'); return; }
+  let role=document.getElementById('newRole').value;
+  let skill=document.getElementById('newSkill').value || 'HTML • CSS';
+  members.push({name:name,role:role,skill:skill,points:50,ava:'👨‍💻',color:'#ffcc00',cat:'New',bio:'New member of Taphy Coders! Welcome! 🎉',isNew:true});
+  document.getElementById('addResult').innerText='✅ '+name+' added! Welcome to Taphy Coders!';
+  document.getElementById('newName').value='';
+  setTimeout(()=>{ closeAdd(); render(); document.getElementById('addResult').innerText=''; },1200);
+}
+render();
+</script>
+</body>
+</html>
